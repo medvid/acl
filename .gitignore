@@ -5,3 +5,4 @@ Lst/
 *.lst
 *.o
 *.a
+*.elf
