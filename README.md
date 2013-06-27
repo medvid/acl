@@ -41,7 +41,7 @@ Add README, GitHub upload
 
 ## Build instructions
 
-Tested only in linux with CodeSourcery's GNU toolchain.
+Tested only in linux with CodeSourcery's and Linaro toolchains
 Original code was tested on Keil MCB2130 board with NXP LPC2138.
 Simulation was done in Keil uVision3 simulator/debugger.
 
@@ -49,14 +49,25 @@ I have not tested it on real hardware, but everything should work.
 
 To build library, run:
 
-    $ make CROSS_COMPILE=arm-unknown-linux-gnueabi-
+    make CROSS_COMPILE=arm-linux-gnueabihf-
 
 To build test application, run:
 
-    $ make CROSS_COMPILE=arm-unknown-linux-gnueabi- test
+    make CROSS_COMPILE=arm-linux-gnueabihf- test
 
 You should specify correct cross compilation prefix.
-Default is `arm-unknown-linux-gnueabi-`.
+Default is `arm-linux-gnueabihf-`.
+
+You can get Linaro GCC toolchain here:
+[source](https://launchpad.net/gcc-linaro),
+[binaries](https://launchpad.net/linaro-toolchain-binaries).
+
+Everything was tested with version 2013.05:
+[source](https://launchpad.net/gcc-linaro/+milestone/4.8-2013.05),
+[binaries](https://launchpad.net/linaro-toolchain-binaries/+milestone/2013.05).
+
+Direct link to prebuilt toolchain:
+[gcc-linaro-arm-linux-gnueabihf-4.8-2013.05_linux.tar.xz](https://launchpad.net/linaro-toolchain-binaries/trunk/2013.05/+download/gcc-linaro-arm-linux-gnueabihf-4.8-2013.05_linux.tar.xz).
 
 ## TODO
 

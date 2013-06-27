@@ -2,7 +2,7 @@
 
 LIB := acl.a
 
-CROSS_COMPILE = arm-unknown-linux-gnueabi-
+CROSS_COMPILE = arm-linux-gnueabihf-
 
 AR       := $(CROSS_COMPILE)ar
 AS       := $(CROSS_COMPILE)as
@@ -11,9 +11,8 @@ RANLIB   := $(CROSS_COMPILE)ranlib
 
 RM       := rm -f
 
-CFLAGS   = -mcpu=arm7tdmi -mthumb -Wall -Os -mapcs-frame \
-	-mthumb-interwork -I. -c
-ASFLAGS  = -mcpu=arm7tdmi -mthumb-interwork
+CFLAGS   = -Wall -I. -c
+ASFLAGS  =
 
 SRC_DIRS := aes common curves ecc gf_2 gf_p primes prng rsa sha
 LST_DIR  := lst
@@ -38,7 +37,7 @@ OBJS_TEST := $(subst .c,.o,$(SRCS_TEST))
 OBJS_TEST_PRE := $(addprefix $(OBJ_DIR)/,$(OBJS_TEST))
 
 
-all: lib
+all: lib test
 
 lib: $(LIB)
 
