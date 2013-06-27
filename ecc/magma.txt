@@ -1,0 +1,26 @@
+# this is a magma script. magma can be found here:
+# http://magma.maths.usyd.edu.au/magma/
+
+# double the base point on the nist curve p-192
+
+p192 := 2^192-2^64-1;
+a := -3;
+b := 0x64210519e59c80e70fa7e9ab72243049feb8deecc146b9b1;
+
+K := GF(p192);
+a := K!a;
+b := K!b;
+E := EllipticCurve([a, b]);
+
+gx := 0x188da80eb03090f67cbf20eb43a18800f4ff0afd82ff1012;
+gy := 0x07192b95ffc8da78631011ed6b24cdd573f977a11e794811;
+
+G := E![gx, gy, 1];
+P := 2*G;
+
+n := Integers()!P[1]; rr := 2^32;
+for i:=1 to 6 do
+    x := n mod rr;
+    x:Hex;
+    n := n div rr;
+end for;

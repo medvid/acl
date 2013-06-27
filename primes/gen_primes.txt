@@ -1,0 +1,36 @@
+# this is a calc script. calc can be found here:
+# http://isthe.com/chongo/tech/comp/calc/
+
+# generate products of first couple of primes
+# that will fit into n 32-bit words
+
+max_n = 32;
+base(16);
+fp = fopen("acl_pop_table.txt", "w");
+fprintf(fp, "@ products-of-primes tables");
+p = 3;
+prod = 1;
+oprod = 1;
+limit = 2^32;
+
+for(i=0; i<max_n; i++) {
+	while(prod < limit) {
+		if(isprime(p)) {
+			oprod = prod;
+			prod *= p;
+		}
+		p++;
+	}
+
+	fprintf(fp, "\n.int ");
+	out = oprod;
+	for(k=0; k<i; k++) {
+		fprintf(fp, "%x, ", out & 0xFFFFFFFF);
+		out = out >> 32;
+	}
+	fprintf(fp, "%x", out & 0xFFFFFFFF);
+
+	limit *= 2^32;
+}
+fprintf(fp, "\n");
+fclose(fp);
