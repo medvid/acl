@@ -17,7 +17,7 @@ Department of Electronics and Multimedia Communications (DEMC)
 **Supervisor** - Assoc. Prof. Miloš Drutarovský, Ph.D.
 
 ## License
-Unknown. Original code was pulled out from Jaroslav Bán's [master thesis](www.kemt.fei.tuke.sk/personal/drutarovsky/students/pdfs/ban2007.pdf).
+Unknown. Original code was pulled out from Jaroslav Bán's [master thesis](http://www.kemt.fei.tuke.sk/personal/drutarovsky/students/pdfs/ban2007.pdf).
 Also, library code was uploaded by author to [Programmersheaven.com](http://www.programmersheaven.com/download/52999/Download.aspx), but [download link](http://web.omnidrive.com/APIServer/public/Dog4VIJWMbOTFzupAMhMstsd/Cryptographic%20library%20for%20ARM7TDMI%20processors.zip) is broken. So, lets assume it is public domain.
 
 ## Changelog
