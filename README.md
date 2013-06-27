@@ -70,7 +70,7 @@ Everything was tested with version 2013.05:
 [binaries](https://launchpad.net/linaro-toolchain-binaries/+milestone/2013.05).
 
 Direct link to prebuilt toolchain:
-[gcc-linaro-arm-linux-gnueabihf-4.8-2013.05_linux.tar.xz](https://launchpad.net/linaro-toolchain-binaries/trunk/2013.05/+download/gcc-linaro-arm-linux-gnueabihf-4.8-2013.05_linux.tar.xz).
+[gcc-linaro-arm-linux-gnueabihf-4.8-2013.05_linux.tar.xz](https://launchpad.net/linaro-toolchain-binaries/trunk/2013.05/+download/gcc-linaro-arm-linux-gnueabihf-4.8-2013.05_linux.tar.xz) (use "Save Link As..", my browser interprets archive as plaintext).
 
 ## TODO
 
