@@ -24,24 +24,27 @@ Also, library code was uploaded by author to [Programmersheaven.com](http://www.
 
 ### 2007-04-24
 
-Version 1.0.0
+  - Version 1.0.0
 
 ### 2007-05-15
 
-Date of PDF publication
+  - PDF publication
 
 ### 2013-06-26
 
-Pull out from PDF, fix Makefile
+  - Pull out from PDF
+  - Fix Makefile
 
 ### 2013-06-27
 
-Add README, GitHub upload
+  - Add README
+  - GitHub upload
+  - Switch to Linaro GCC toolchain
 
 
 ## Build instructions
 
-Tested only in linux with CodeSourcery's and Linaro toolchains
+Tested only in linux with CodeSourcery's and Linaro toolchains.
 Original code was tested on Keil MCB2130 board with NXP LPC2138.
 Simulation was done in Keil uVision3 simulator/debugger.
 
