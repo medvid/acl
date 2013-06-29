@@ -55,12 +55,12 @@ $(TEST_ELF): $(LIB) $(OBJS_TEST_PRE)
 
 
 $(OBJ_DIR)/%.o: %.c
-	@mkdir -p {$(LST_DIR),$(OBJ_DIR)}/$$(dirname $<)
+	@for dir in $(LST_DIR) $(OBJ_DIR); do mkdir -p $$dir/$$(dirname $<); done
 	$(CC) -MM -MT $@ -I. $< > $(OBJ_DIR)/$*.d
 	$(CC) $(CFLAGS) $< -o $@
 
 $(OBJ_DIR)/%.o: %.s
-	@mkdir -p {$(LST_DIR),$(OBJ_DIR)}/$$(dirname $<)
+	@for dir in $(LST_DIR) $(OBJ_DIR); do mkdir -p $$dir/$$(dirname $<); done
 	$(CC) -MM -MT $@ -I. $< > $(OBJ_DIR)/$*.d
 	$(AS) $(ASFLAGS) $< -o $@
 
