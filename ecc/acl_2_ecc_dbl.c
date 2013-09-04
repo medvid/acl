@@ -13,10 +13,10 @@
 
 void acl_2_ecc_dbl(vect3 a, vect4 tmp, ecc_t *c)
 {
-    vect m, t1, t2, yy, zz, fr; uint len;
+    vect t1, t2, yy, zz, fr; uint len;
     // tmp = tmp tmp t1 t2
 
-    m = c->m; len = c->l; fr = c->fr;
+    len = c->l; fr = c->fr;
     yy = xx + len; zz = yy + len; t1 = tmp + 2*len;t2 = t1 + len;
 
     if(!acl_zero(zz, len)) {    // 2 * inf == inf

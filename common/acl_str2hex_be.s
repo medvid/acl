@@ -1,5 +1,5 @@
 @ void acl_str2hex_be(vect res, bytes str, size_t len);
-@   converts string(hex chars) to big-endian numberin res[len]
+@   converts string(hex chars) to big-endian number in res[len]
 @ on entry:
 @   r0 = pointer to result
 @   r1 = pointer to input string

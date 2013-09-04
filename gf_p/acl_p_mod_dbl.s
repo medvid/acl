@@ -1,4 +1,4 @@
-@ uint acl_p_mod_dbl(vect a, uint k, vect m, size_tlen);
+@ uint acl_p_mod_dbl(vect a, uint k, vect m, size_t len);
 @   a = (2^k)*a mod m
 @   returns number of times it had to subtract m
 @ on entry:

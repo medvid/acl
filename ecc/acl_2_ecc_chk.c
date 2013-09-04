@@ -10,10 +10,10 @@
 
 bool_t acl_2_ecc_chk(vect2 a, vect4 tmp, ecc_t *c)
 {
-    vect m, t1, t2, yy, fr; uint len;
+    vect t1, t2, yy, fr; uint len;
     // tmp = tmp tmp t1 t2
 
-    m = c->m; len = c->l; fr = c->fr;
+    len = c->l; fr = c->fr;
     yy = xx + len; t1 = tmp + 2*len; t2 = t1 + len;
 
 #if ACL_CHK_INF_ON_CURVE

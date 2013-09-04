@@ -14,10 +14,10 @@
 
 void acl_2_ecc_add(vect3 a, vect2 b, vect5 tmp, ecc_t *c)
 {
-    vect m, t1, t2, t3, yy1, zz1, yy2, fr; uint len;
+    vect t1, t2, t3, yy1, zz1, yy2, fr; uint len;
     // tmp = tmp tmp t1 t2 t3
 
-    m = c->m; len = c->l; fr = c->fr;
+    len = c->l; fr = c->fr;
     yy2 = b + len; yy1 = xx1 + len; zz1 = yy1 + len;
     t1 = tmp + 2*len; t2 = t1 + len; t3 = t2 + len;
 

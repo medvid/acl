@@ -23,10 +23,10 @@
 
 void acl_ecc_pre(vectN pre, vect2 p, uint w, uint s, vect8 tmp, ecc_t *c)
 {
-    vect zz, t1, base, h; uint len, len2, comb, i, j;
+    vect t1, base, h; uint len, len2, comb, i, j;
     // tmp[8*len] = x y z t1 t1 t1 t1 t1
 
-    len = c->l; len2 = 2*len; zz = tmp + len2; t1 =tmp + 3*len;
+    len = c->l; len2 = 2*len; t1 =tmp + 3*len;
 
     acl_mov(pre, p, len2);
     base = pre;
