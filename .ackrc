@@ -1,0 +1,3 @@
+--ignore-dir=lst
+--ignore-dir=obj
+--ignore-dir=bin
