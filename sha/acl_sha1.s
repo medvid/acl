@@ -249,6 +249,10 @@ as1d_done:
 		str	len1, [buf, #4*15]
 		str	len2, [buf, #4*14]
 		bl	as1_core
+#ifdef LITTLE_ENDIAN
+		mov	len1, #5
+		bl	acl_rev_bytes
+#endif
 		pop	{lr}
 		bx	lr
 

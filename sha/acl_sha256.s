@@ -5,7 +5,7 @@
 		.text
 		.arm
 
-@ based on Federal Information Processing StandardsPublication 180-2
+@ based on Federal Information Processing Standards Publication 180-2
 @       (+ Change Notice to include SHA-224)
 @ and on http://en.wikipedia.org/wiki/SHA_hash_functions
 @ which translates very well into ARM code
@@ -198,10 +198,10 @@ as256c_skip:	adr	tmp1, acl_sha256_table
 		pop	{r4-r11, r14}
 		bx	lr
 
-@	void acl_sha256_done(vect26 state);
-@	  finish sha-256 hash - the result is in state[0..4]
-@	on entry:
-@	  r0 = pointer to state
+@ void acl_sha256_done(vect26 state);
+@   finish sha-256 hash - the result is in state[0..4]
+@ on entry:
+@   r0 = pointer to state
 
 		len1	.req r1 @
 		len2	.req r3 @
@@ -235,6 +235,10 @@ as256d_done:	pop	{len1, len2}
 		str	len1, [buf, #4*15]
 		str	len2, [buf, #4*14]
 		bl	as256_core
+#ifdef LITTLE_ENDIAN
+		mov	len1, #8
+		bl	acl_rev_bytes
+#endif
 		pop	{lr}
 		bx	lr
 

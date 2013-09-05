@@ -375,6 +375,10 @@ as512d_done:	pop {len1, len2}
 		str	len1, [buf, #4*31]
 		str	len2, [buf, #4*30]
 		bl	as512_core
+#ifdef LITTLE_ENDIAN
+		mov	len1, #16
+		bl	acl_rev_bytes
+#endif
 		pop	{lr}
 		bx	lr
 
