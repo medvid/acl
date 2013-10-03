@@ -12,9 +12,11 @@ all: lib test
 # Include project configuration
 include config.mk
 
+ifneq ($(filter-out %clean,$(MAKECMDGOALS)),$(if $(MAKECMDGOALS),,fail))
 config.mk: configure Makefile rules.mk
 	@echo Configuration is out-of-date, running configure
 	@sed -n "/.*Configured with/s/[^:]*: //p" $@ | sh
+endif
 else
 config.mk:
 ifneq ($(filter-out %clean,$(MAKECMDGOALS)),$(if $(MAKECMDGOALS),,fail))
@@ -53,10 +55,12 @@ RM       := rm -f
 # Board-specific directory
 BOARD_DIR := board/$(BOARD)
 BOARD_CONFIG := $(BOARD_DIR)/config.mk
--include $(BOARD_CONFIG)
 
 # Rebuild project after config change
+ifneq ($(BOARD),)
+include $(BOARD_CONFIG)
 config.mk: $(BOARD_CONFIG)
+endif
 
 # Linker script for test application
 TEST_LD  := $(BOARD_DIR)/test.ld
@@ -71,9 +75,9 @@ CFLAGS   += -c
 # produce debugging information
 # $(DEBUG)=yes/no should be set in config.mk
 ifeq ($(DEBUG),yes)
-	CFLAGS += -g -O0
+CFLAGS   += -g -O0
 else
-	CFLAGS += -O3
+CFLAGS   += -O3
 endif
 
 # board-specific flags
@@ -83,21 +87,21 @@ CFLAGS   += $(CPUFLAGS)
 # Endianess
 # $(ENDIAN)=BIG/LITTLE should be set in board config
 ifeq ($(ENDIAN),BIG)
-	CFLAGS  += -mbig-endian
-	CFLAGS  += -DBIG_ENDIAN
-	LDFLAGS += -EB
+CFLAGS   += -mbig-endian
+CFLAGS   += -DBIG_ENDIAN
+LDFLAGS  += -EB
 else
-	CFLAGS  += -mlittle-endian
-	CFLAGS  += -DLITTLE_ENDIAN
-	LDFLAGS += -EL
+CFLAGS   += -mlittle-endian
+CFLAGS   += -DLITTLE_ENDIAN
+LDFLAGS  += -EL
 endif
 
 # Compile in thumb mode
 # $(THUMB)=1/0 should be set in board config
 # NOTE: Thumb mode currently is not supported
 ifeq ($(THUMB),1)
-	CFLAGS += -mthumb
-	# CFLAGS += -mthumb-interwork
+CFLAGS += -mthumb
+# CFLAGS += -mthumb-interwork
 endif
 
 # Create assembly listings
