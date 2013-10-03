@@ -1,0 +1,3 @@
+ENDIAN   := LITTLE
+THUMB    := 0
+CPUFLAGS += -mcpu=arm926ej-s -DVERSATILEPB -D__ARM_ARCH__=5

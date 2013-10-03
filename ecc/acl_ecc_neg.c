@@ -7,8 +7,9 @@
 
 void acl_ecc_neg(vect3 a, ecc_t *c)
 {
-    if((c->t & ECC_F_MASK) == ECC_2)    // over GF(2)
+    if((c->t & ECC_F_MASK) == ECC_2) {  // over GF(2)
         acl_xor(a + c->l, a, a + c->l, c->l);
-    else                                // over GF(p)
+    } else {                            // over GF(p)
         acl_p_mod_sub(a + c->l, c->m, a + c->l, c->m, c->l);
+    }
 }

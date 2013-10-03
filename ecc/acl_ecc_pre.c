@@ -26,19 +26,21 @@ void acl_ecc_pre(vectN pre, vect2 p, uint w, uint s, vect8 tmp, ecc_t *c)
     vect t1, base, h; uint len, len2, comb, i, j;
     // tmp[8*len] = x y z t1 t1 t1 t1 t1
 
-    len = c->l; len2 = 2*len; t1 =tmp + 3*len;
+    len = c->l; len2 = 2*len; t1 = tmp + 3*len;
 
     acl_mov(pre, p, len2);
     base = pre;
     comb = 1;
-    for(i = 1; i < w; i++) {
+    for (i = 1; i < w; i++) {
         acl_ecc_pro(tmp, base, len);            // previous base point
-        for(j = 0; j < s; j++) acl_ecc_dbl(tmp, t1, c); // 2^s * base
+        for (j = 0; j < s; j++) {
+            acl_ecc_dbl(tmp, t1, c);            // 2^s * base
+        }
         acl_ecc_aff(tmp, t1, c);
         base += comb * len2;                    // new base point
         acl_mov(base, tmp, len2);
         comb <<= 1;
-        for(j = 1; j < comb; j++) {             // the in betweens
+        for (j = 1; j < comb; j++) {             // the in betweens
             acl_ecc_pro(tmp, base, len);
             h = pre + (j - 1) * len2;           // already done
             acl_ecc_add(tmp, h, t1, c);

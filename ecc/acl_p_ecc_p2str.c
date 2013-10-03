@@ -21,15 +21,22 @@ void acl_p_ecc_p2str(bytes str, vect2 a, bool_t comp, vect tmp, ecc_t *c)
 
     m = c->m; len = c->l;
     *str++ = '0';
-    if(acl_zero(a, 2*len)) {
+    if (acl_zero(a, 2*len)) {
         *str++ = '0';
     } else {
-        if(c->t & ECC_A_MASK) m = m + len;
+        if (c->t & ECC_A_MASK) {
+            m = m + len;
+        }
         len_m = 4*len;
-        while(((bytes) m)[len_m - 1] == 0) len_m--;
-        if(comp) {
-            if(a[len] & 1) *str++ = '3';
-            else *str++ = '2';
+        while (((bytes) m)[len_m - 1] == 0) {
+            len_m--;
+        }
+        if (comp) {
+            if (a[len] & 1) {
+                *str++ = '3';
+            } else {
+                *str++ = '2';
+            }
             acl_hex2str_le(str, a, 2*len_m);
             str += 2*len_m;
         } else {

@@ -26,18 +26,18 @@ void acl_2_ecc_p2str(bytes str, vect2 a, bool_t comp, vect5 tmp, ecc_t *c)
     len = c->l; fr = c->fr; t1 = tmp + 3*len; t2 = t1 + len;
 
     *str++ = '0';
-    if(acl_zero(a, 2*len))
+    if (acl_zero(a, 2*len)) {
         *str++ = '0';
-    else {
+    } else {
         acl_mov32(t1, 1, len);      // recover m from fr
         k = 0;
-        while(c->fr[k]) {
+        while (c->fr[k]) {
             acl_bit_set(t1, c->fr[k]);
             k++;
         }
         len_m = 4*len;
-        while(((bytes) t1)[len_m - 1] == 0) len_m--;
-        if(comp) {
+        while (((bytes) t1)[len_m - 1] == 0) len_m--;
+        if (comp) {
             acl_2_mod_inv(t2, a, t1, tmp, len);
             acl_2_mul_fr(t1, a + len, t2);
             if(t1[0] & 1) *str++ = '3';

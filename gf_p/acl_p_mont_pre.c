@@ -12,16 +12,18 @@ void acl_p_mont_pre(vect r_mod_m, vect r2_mod_m, uint *m_inv, \
 {
     int i;
 
-    if(m_inv) *m_inv = acl_p_mont_m_inv(m);
-    if(r_mod_m) {
+    if (m_inv) {
+        *m_inv = acl_p_mont_m_inv(m);
+    }
+    if (r_mod_m) {
         i = acl_log2(m, len);
         acl_mov32(r_mod_m, 0, len);
         acl_bit_set(r_mod_m, i);
         i = 32 * len - i;
         acl_p_mod_dbl(r_mod_m, i, m, len);
     }
-    if(r2_mod_m) {
-        if(r_mod_m) {
+    if (r2_mod_m) {
+        if (r_mod_m) {
             acl_mov(r2_mod_m, r_mod_m, len);
             i = 32 * len;
         } else {

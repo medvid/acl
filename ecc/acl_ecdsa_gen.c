@@ -29,10 +29,14 @@ void acl_ecdsa_gen(vect r, vect s, vect e, size_t len_e, vect dA, \
 aeg_again:
     rnd_strong(t1, len);
     acl_p_mod(k, t1, len, m, len);          // k = rnd mod n
-    if(acl_zero(k, len)) goto aeg_again;
+    if (acl_zero(k, len)) {
+        goto aeg_again;
+    }
     acl_ecc_mul(a, base, 0, wi, sp, k, 0, len, tmp,c);  // a = k * G
     acl_p_mod(r, a, c->l, m, len);          // r = x1 mod n
-    if(acl_zero(r, len)) goto aeg_again;
+    if (acl_zero(r, len)) {
+        goto aeg_again;
+    }
     acl_p_mont_pre(0, t1, &m_inv, m, len);
     acl_p_mul_mont(t1, r, t1);              // t1 =r * R
     acl_p_mul_mont(t1, t1, dA);             // t1 =r * dA
@@ -40,5 +44,7 @@ aeg_again:
     acl_p_mod_add(t1, t1, t2, m, len);      // t1 =e + r * dA
     acl_p_mod_inv(t2, k, 32*len, m, a, len);    // t2 = k^(-1) * R
     acl_p_mul_mont(s, t1, t2);              // s = k^(-1) * (e + r * dA)
-    if(acl_zero(s, len)) goto aeg_again;
+    if (acl_zero(s, len)) {
+        goto aeg_again;
+    }
 }

@@ -1,7 +1,8 @@
 // perform known answer tests of the sha implementations
 
-#include "acl.h"
-#include "system.h"
+#include "test.h"
+#include "stdio.h"
+#include "timer.h"
 
 uint state[68];  // sha-1: 23, sha-256: 26, sha-512: 68
 uint i, h;
@@ -90,19 +91,28 @@ bool_t test_sha1(void) {
 
     sha1_str(sha_test_str1);
     acl_str2hex_be(tmp, (bytes) sha1_results[0], 5);
-    if(acl_cmp(state, tmp, 5)) return TRUE;
+    if (acl_cmp(state, tmp, 5)) {
+        return TRUE;
+    }
 
     sha1_str(sha_test_str2);
     acl_str2hex_be(tmp, (bytes) sha1_results[1], 5);
-    if(acl_cmp(state, tmp, 5)) return TRUE;
+    if (acl_cmp(state, tmp, 5)) {
+        return TRUE;
+    }
 
     restart_timer(0);
     acl_sha1_init(state);
-    for(i=0; i<1000000; i++) acl_sha1(state, 'a');
+    for (i = 0; i < TEST_SHA_ITER; i++) {
+        acl_sha1(state, 'a');
+    }
     acl_sha1_done(state);
-    h = stop_timer(0); put_val("\n1000000 = ", h);
+    h = stop_timer(0);
+    put_val("\nTEST_SHA_ITER = ", h);
     acl_str2hex_be(tmp, (bytes) sha1_results[2], 5);
-    if(acl_cmp(state, tmp, 5)) return TRUE;
+    if (acl_cmp(state, tmp, 5)) {
+        return TRUE;
+    }
 
     return FALSE;
 }
@@ -113,19 +123,28 @@ bool_t test_sha224(void) {
 
     sha224_str(sha_test_str1);
     acl_str2hex_be(tmp, (bytes) sha224_results[0], 7);
-    if(acl_cmp(state, tmp, 7)) return TRUE;
+    if (acl_cmp(state, tmp, 7)) {
+        return TRUE;
+    }
 
     sha224_str(sha_test_str2);
     acl_str2hex_be(tmp, (bytes) sha224_results[1], 7);
-    if(acl_cmp(state, tmp, 7)) return TRUE;
+    if (acl_cmp(state, tmp, 7)) {
+        return TRUE;
+    }
 
     restart_timer(0);
     acl_sha224_init(state);
-    for(i=0; i<1000000; i++) acl_sha256(state, 'a');
+    for (i = 0; i < TEST_SHA_ITER; i++) {
+        acl_sha256(state, 'a');
+    }
     acl_sha256_done(state);
-    h = stop_timer(0); put_val("\n1000000 = ", h);
+    h = stop_timer(0);
+    put_val("\nTEST_SHA_ITER = ", h);
     acl_str2hex_be(tmp, (bytes) sha224_results[2], 7);
-    if(acl_cmp(state, tmp, 7)) return TRUE;
+    if (acl_cmp(state, tmp, 7)) {
+        return TRUE;
+    }
 
     return FALSE;
 }
@@ -136,19 +155,28 @@ bool_t test_sha256(void) {
 
     sha256_str(sha_test_str1);
     acl_str2hex_be(tmp, (bytes) sha256_results[0], 8);
-    if(acl_cmp(state, tmp, 8)) return TRUE;
+    if (acl_cmp(state, tmp, 8)) {
+        return TRUE;
+    }
 
     sha256_str(sha_test_str2);
     acl_str2hex_be(tmp, (bytes) sha256_results[1], 8);
-    if(acl_cmp(state, tmp, 8)) return TRUE;
+    if (acl_cmp(state, tmp, 8)) {
+        return TRUE;
+    }
 
     restart_timer(0);
     acl_sha256_init(state);
-    for(i=0; i<1000000; i++) acl_sha256(state, 'a');
+    for (i = 0; i < TEST_SHA_ITER; i++) {
+        acl_sha256(state, 'a');
+    }
     acl_sha256_done(state);
-    h = stop_timer(0); put_val("\n1000000 = ", h);
+    h = stop_timer(0);
+    put_val("\nTEST_SHA_ITER = ", h);
     acl_str2hex_be(tmp, (bytes) sha256_results[2], 8);
-    if(acl_cmp(state, tmp, 8)) return TRUE;
+    if (acl_cmp(state, tmp, 8)) {
+        return TRUE;
+    }
 
     return FALSE;
 }
@@ -159,19 +187,28 @@ bool_t test_sha384(void) {
 
     sha384_str(sha_test_str1);
     acl_str2hex_be(tmp, (bytes) sha384_results[0], 12);
-    if(acl_cmp(state, tmp, 12)) return TRUE;
+    if (acl_cmp(state, tmp, 12)) {
+        return TRUE;
+    }
 
     sha384_str(sha_test_str3);
     acl_str2hex_be(tmp, (bytes) sha384_results[1], 12);
-    if(acl_cmp(state, tmp, 12)) return TRUE;
+    if (acl_cmp(state, tmp, 12)) {
+        return TRUE;
+    }
 
     restart_timer(0);
     acl_sha384_init(state);
-    for(i=0; i<1000000; i++) acl_sha512(state, 'a');
+    for (i = 0; i < TEST_SHA_ITER; i++) {
+        acl_sha512(state, 'a');
+    }
     acl_sha512_done(state);
-    h = stop_timer(0); put_val("\n1000000 = ", h);
+    h = stop_timer(0);
+    put_val("\nTEST_SHA_ITER = ", h);
     acl_str2hex_be(tmp, (bytes) sha384_results[2], 12);
-    if(acl_cmp(state, tmp, 12)) return TRUE;
+    if (acl_cmp(state, tmp, 12)) {
+        return TRUE;
+    }
 
     return FALSE;
 }
@@ -182,30 +219,39 @@ bool_t test_sha512(void) {
 
     sha512_str(sha_test_str1);
     acl_str2hex_be(tmp, (bytes) sha512_results[0], 16);
-    if(acl_cmp(state, tmp, 16)) return TRUE;
+    if (acl_cmp(state, tmp, 16)) {
+        return TRUE;
+    }
 
     sha512_str(sha_test_str3);
     acl_str2hex_be(tmp, (bytes) sha512_results[1], 16);
-    if(acl_cmp(state, tmp, 16)) return TRUE;
+    if (acl_cmp(state, tmp, 16)) {
+        return TRUE;
+    }
 
     restart_timer(0);
     acl_sha512_init(state);
-    for(i=0; i<1000000; i++) acl_sha512(state, 'a');
+    for (i = 0; i < TEST_SHA_ITER; i++) {
+        acl_sha512(state, 'a');
+    }
     acl_sha512_done(state);
-    h = stop_timer(0); put_val("\n1000000 = ", h);
+    h = stop_timer(0);
+    put_val("\nTEST_SHA_ITER = ", h);
     acl_str2hex_be(tmp, (bytes) sha512_results[2], 16);
-    if(acl_cmp(state, tmp, 16)) return TRUE;
+    if (acl_cmp(state, tmp, 16)) {
+        return TRUE;
+    }
 
     return FALSE;
 }
 
 bool_t test_sha(void) {
 
-    if(test_sha1()) return TRUE;
-    if(test_sha224()) return TRUE;
-    if(test_sha256()) return TRUE;
-    if(test_sha384()) return TRUE;
-    if(test_sha512()) return TRUE;
+    if (test_sha1()) return TRUE;
+    if (test_sha224()) return TRUE;
+    if (test_sha256()) return TRUE;
+    if (test_sha384()) return TRUE;
+    if (test_sha512()) return TRUE;
 
     return FALSE;
 }

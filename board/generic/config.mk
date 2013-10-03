@@ -1,0 +1,3 @@
+ENDIAN   := LITTLE
+THUMB    := 0
+CPUFLAGS += -mcpu=cortex-a9 -DBOARD_GENERIC -D__ARM_ARCH__=7

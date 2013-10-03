@@ -19,22 +19,22 @@ void acl_2_ecc_dbl(vect3 a, vect4 tmp, ecc_t *c)
     len = c->l; fr = c->fr;
     yy = xx + len; zz = yy + len; t1 = tmp + 2*len;t2 = t1 + len;
 
-    if(!acl_zero(zz, len)) {    // 2 * inf == inf
+    if (!acl_zero(zz, len)) {   // 2 * inf == inf
         acl_2_sqr_fr(t1, zz);           // 2 t1 = zz^2
         acl_2_sqr_fr(t2, xx);           // 3 t2 = xx^2
         acl_2_mul_fr(zz, t1, t2);       // 4 zz = t1 * t2 == new zz
         acl_2_sqr_fr(xx, t2);           // 5 xx = xx^4
         acl_2_sqr_fr(t1, t1);           // 6 t1 = zz^4
-        if((int) c->b == 1)             // 7 t2 = b* zz^4
+        if ((int) c->b == 1) {          // 7 t2 = b* zz^4
             acl_mov(t2, t1, len);
-        else {
+        } else {
             acl_2_mul_fr(t2, t1, c->b);
         }
         acl_xor(xx, xx, t2, len);       // 8 xx = xx + t2 == new xx
         acl_2_sqr_fr(yy, yy);           // 9 yy = yy^2
-        if((int) c->a == 1)             // 10 yy = yy + a * zz
+        if ((int) c->a == 1)            // 10 yy = yy + a * zz
             acl_xor(yy, yy, zz, len);
-        else if(c->a) {
+        else if (c->a) {
             acl_2_mul_fr(t1, c->a, zz);
             acl_xor(yy, yy, t1, len);
         }

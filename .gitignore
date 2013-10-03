@@ -1,8 +1,16 @@
-obj/
-lst/
+config.mk
+build/
 
+bin/
+lst/
+obj/
+
+*.a
 *.d
+*.elf
 *.lst
 *.o
-*.a
-*.elf
+
+*.bz2
+*.gz2
+*.xz

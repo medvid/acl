@@ -14,14 +14,14 @@ void acl_2_ecc_aff(vect3 a, vect5 tmp, ecc_t *c)
     // tmp = tmp tmp tmp t1 t2
 
     len = c->l; fr = c->fr;
-    yy = xx + len; zz = yy + len; t1 = tmp + 3*len;t2 = t1 + len;
+    yy = xx + len; zz = yy + len; t1 = tmp + 3*len; t2 = t1 + len;
 
-    if(acl_zero(zz, len))
+    if (acl_zero(zz, len)) {
         acl_mov32(a, 0, 2*len);
-    else {
+    } else {
         acl_mov32(t1, 1, len);      // recover m from fr
         k = 0;
-        while(c->fr[k]) {
+        while (c->fr[k]) {
             acl_bit_set(t1, c->fr[k]);
             k++;
         }

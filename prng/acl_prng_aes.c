@@ -18,7 +18,7 @@ void acl_prng_aes(vect res, size_t len)
 {
     int i;
 
-    for(i = 0; i < len; i++) {
+    for (i = 0; i < len; i++) {
         acl_aes_cntr(apa_tmp, (vect) apa_in, apa_key_exp, \
                 ACL_PRNG_AES_SIZE, apa_cntr);
         res[i] = apa_tmp[0];

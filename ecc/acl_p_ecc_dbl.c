@@ -19,11 +19,11 @@ void acl_p_ecc_dbl(vect3 a, vect4 tmp, ecc_t *c)
     m = c->m; len = c->l; fr = c->fr;
     yy = xx + len; zz = yy + len; t1 = tmp + 2*len; t2 = t1 + len;
     
-    if(!acl_zero(zz, len)) {    // 2 * inf == inf
-        if(!c->a) {
+    if (!acl_zero(zz, len)) {    // 2 * inf == inf
+        if (!c->a) {
             acl_p_sqr_fr(t1, xx);               // t1 = xx^2
             acl_p_mod_add(t2, t1, t1, m, len);  // t2 = 2 * t1
-        } else if((int) c->a == -3) {
+        } else if ((int) c->a == -3) {
             acl_p_sqr_fr(t1, zz);               // 2 t1 = zz^2
             acl_p_mod_sub(t2, xx, t1, m, len);  // 3 t2 = xx - t1
             acl_p_mod_add(t1, t1, xx, m, len);  // 4 t1 = t1 + xx

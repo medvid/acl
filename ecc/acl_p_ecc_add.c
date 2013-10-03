@@ -21,20 +21,23 @@ void acl_p_ecc_add(vect3 a, vect2 b, vect5 tmp, ecc_t *c)
     yy2 = b + len; yy1 = xx1 + len; zz1 = yy1 + len;
     t1 = tmp + 2*len; t2 = t1 + len; t3 = t2 + len;
 
-    if(!acl_zero(b, 2*len)) {       // if b == inf then ret a
-        if(acl_zero(zz1, len))      // if a == inf then ret b
+    if (!acl_zero(b, 2*len)) {      // if b == inf then ret a
+        if(acl_zero(zz1, len)) {    // if a == inf then ret b
             acl_ecc_pro(a, b, len);
-        else {
+        } else {
             acl_p_sqr_fr(t1, zz1);              // 3 t1 = zz1^2 == A
             acl_p_mul_fr(t2, t1, zz1);          // 4 t2 = t1 * zz1 == B
             acl_p_mul_fr(t1, t1, xx2);          // 5 t1 = t1 * xx2 == C
             acl_p_mul_fr(t2, t2, yy2);          // 6 t2 = t2 * yy2 == D
             acl_p_mod_sub(t1, t1, xx1, m, len); // 7 t1 = t1 - xx1 == E
             acl_p_mod_sub(t2, t2, yy1, m, len); // 8 t2 = t2 - yy1 == F
-            if(acl_zero(t1, len))
-                if(acl_zero(t2, len)) acl_ecc_dbl(a, tmp, c);
-                else acl_mov32(zz1, 0, len);
-            else {
+            if (acl_zero(t1, len)) {
+                if (acl_zero(t2, len)) {
+                    acl_ecc_dbl(a, tmp, c);
+                } else {
+                    acl_mov32(zz1, 0, len);
+                }
+            } else {
                 acl_p_mul_fr(zz1, zz1, t1);     // 10 zz1 = zz1 * t1 -> zz
                 acl_p_sqr_fr(t3, t1);           // 11 t3 = t1^2 == G
                 acl_p_mul_fr(t1, t3, t1);       // 12 t1 = t3 * t1 == H

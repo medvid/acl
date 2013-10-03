@@ -6,8 +6,9 @@
 // for more rigorous tests, change the number of iterations
 // and the known answer
 
-#include "acl.h"
-#include "system.h"
+#include "test.h"
+#include "stdio.h"
+#include "timer.h"
 
 uint key[8];
 uint key_exp[60];  /* (nk+7)*4, biggest: nk = 8 foraes-256 */
@@ -57,45 +58,57 @@ bool_t test_aes_ecb_en(void) {
     put_str("\naes ecb en 128");
     len_aes = ACL_128;
     zero_all();
-    for(i=0; i<2; i++) {
+    for (i = 0; i < 2; i++) {
         acl_aes_key_en(key_exp, key, len_aes);
         acl_mov(ct, pt, 4);
-        for(j=0; j<10000; j++) acl_aes_ecb_en(ct, ct, key_exp, len_aes);
+        for (j = 0; j < TEST_AES_ITER; j++) {
+            acl_aes_ecb_en(ct, ct, key_exp, len_aes);
+        }
         /* compare with ecb_e_m.txt 128 bits */
         acl_mov(pt, ct, 4);
         acl_xor(key, key, ct, 4);
     }
-    h = stop_timer(0); put_val("  20000 = ", h);
+    h = stop_timer(0);
+    put_val("  20000 = ", h);
     acl_str2bytes(tmp, (bytes) aes_ecb_en_results[0], 4);
-    if(acl_cmp(pt, tmp, 4)) return TRUE;
+    if (acl_cmp(pt, tmp, 4)) {
+        return TRUE;
+    }
 
     /* 192-bit ecb monte carlo encryption test */
     put_str("\naes ecb en 192");
     len_aes = ACL_192;
     zero_all();
-    for(i=0; i<2; i++) {
+    for (i = 0; i < 2; i++) {
         acl_aes_key_en(key_exp, key, len_aes);
         acl_mov(ct, pt, 4);
-        for(j=0; j<10000-2; j++) acl_aes_ecb_en(ct,ct, key_exp, len_aes);
+        for (j = 0; j < TEST_AES_ITER-2; j++) {
+            acl_aes_ecb_en(ct,ct, key_exp, len_aes);
+        }
         acl_aes_ecb_en(oct, ct, key_exp, len_aes);
         acl_aes_ecb_en(ct, oct, key_exp, len_aes);
         /* compare with ecb_e_m.txt 192 bits */
         acl_mov(pt, ct, 4);
-        acl_xor(key, key, oct+2, 2);
-        acl_xor(key+2, key+2, ct, 4);
+        acl_xor(key, key, oct + 2, 2);
+        acl_xor(key + 2, key + 2, ct, 4);
     }
-    h = stop_timer(0); put_val("  20000 = ", h);
+    h = stop_timer(0);
+    put_val("  20000 = ", h);
     acl_str2bytes(tmp, (bytes) aes_ecb_en_results[1], 4);
-    if(acl_cmp(pt, tmp, 4)) return TRUE;
+    if (acl_cmp(pt, tmp, 4)) {
+        return TRUE;
+    }
 
     /* 256-bit ecb monte carlo encryption test */
     put_str("\naes ecb en 256");
     len_aes = ACL_256;
     zero_all();
-    for(i=0; i<2; i++) {
+    for (i = 0; i < 2; i++) {
         acl_aes_key_en(key_exp, key, len_aes);
         acl_mov(ct, pt, 4);
-        for(j=0; j<10000-2; j++) acl_aes_ecb_en(ct,ct, key_exp, len_aes);
+        for (j = 0; j < TEST_AES_ITER-2; j++) {
+            acl_aes_ecb_en(ct,ct, key_exp, len_aes);
+        }
         acl_aes_ecb_en(oct, ct, key_exp, len_aes);
         acl_aes_ecb_en(ct, oct, key_exp, len_aes);
         /* compare with ecb_e_m.txt 256 bits */
@@ -103,9 +116,12 @@ bool_t test_aes_ecb_en(void) {
         acl_xor(key, key, oct, 4);
         acl_xor(key+4, key+4, ct, 4);
     }
-    h = stop_timer(0); put_val("  20000 = ", h);
+    h = stop_timer(0);
+    put_val("  20000 = ", h);
     acl_str2bytes(tmp, (bytes) aes_ecb_en_results[2], 4);
-    if(acl_cmp(pt, tmp, 4)) return TRUE;
+    if (acl_cmp(pt, tmp, 4)) {
+        return TRUE;
+    }
 
     return FALSE;
 }
@@ -116,26 +132,33 @@ bool_t test_aes_ecb_de(void) {
     put_str("\naes ecb de 128");
     len_aes = ACL_128;
     zero_all();
-    for(i=0; i<2; i++) {
+    for (i = 0; i < 2; i++) {
         acl_aes_key_de(key_exp, key, len_aes);
         acl_mov(pt, ct, 4);
-        for(j=0; j<10000; j++) acl_aes_ecb_de(pt, pt, key_exp, len_aes);
+        for (j = 0; j < TEST_AES_ITER; j++) {
+            acl_aes_ecb_de(pt, pt, key_exp, len_aes);
+        }
         /* compare with ecb_d_m.txt 128 bits */
         acl_mov(ct, pt, 4);
         acl_xor(key, key, pt, 4);
     }
-    h = stop_timer(0); put_val("  20000 = ", h);
+    h = stop_timer(0);
+    put_val("  20000 = ", h);
     acl_str2bytes(tmp, (bytes) aes_ecb_de_results[0], 4);
-    if(acl_cmp(ct, tmp, 4)) return TRUE;
+    if (acl_cmp(ct, tmp, 4)) {
+        return TRUE;
+    }
 
     /* 192-bit ecb monte carlo decryption test */
     put_str("\naes ecb de 192");
     len_aes = ACL_192;
     zero_all();
-    for(i=0; i<2; i++) {
+    for (i = 0; i < 2; i++) {
         acl_aes_key_de(key_exp, key, len_aes);
         acl_mov(pt, ct, 4);
-        for(j=0; j<10000-2; j++) acl_aes_ecb_de(pt,pt, key_exp, len_aes);
+        for (j = 0; j < TEST_AES_ITER-2; j++) {
+            acl_aes_ecb_de(pt,pt, key_exp, len_aes);
+        }
         acl_aes_ecb_de(oct, pt, key_exp, len_aes);
         acl_aes_ecb_de(pt, oct, key_exp, len_aes);
         /* compare with ecb_d_m.txt 192 bits */
@@ -143,18 +166,23 @@ bool_t test_aes_ecb_de(void) {
         acl_xor(key, key, oct+2, 2);
         acl_xor(key+2, key+2, pt, 4);
     }
-    h = stop_timer(0); put_val("  20000 = ", h);
+    h = stop_timer(0);
+    put_val("  20000 = ", h);
     acl_str2bytes(tmp, (bytes) aes_ecb_de_results[1], 4);
-    if(acl_cmp(ct, tmp, 4)) return TRUE;
+    if (acl_cmp(ct, tmp, 4)) {
+        return TRUE;
+    }
 
     /* 256-bit ecb monte carlo decryption test */
     put_str("\naes ecb de 256");
     len_aes = ACL_256;
     zero_all();
-    for(i=0; i<2; i++) {
+    for (i = 0; i < 2; i++) {
         acl_aes_key_de(key_exp, key, len_aes);
         acl_mov(pt, ct, 4);
-        for(j=0; j<10000-2; j++) acl_aes_ecb_de(pt,pt, key_exp, len_aes);
+        for (j = 0; j < TEST_AES_ITER-2; j++) {
+            acl_aes_ecb_de(pt,pt, key_exp, len_aes);
+        }
         acl_aes_ecb_de(oct, pt, key_exp, len_aes);
         acl_aes_ecb_de(pt, oct, key_exp, len_aes);
         /* compare with ecb_d_m.txt 256 bits */
@@ -162,9 +190,12 @@ bool_t test_aes_ecb_de(void) {
         acl_xor(key, key, oct, 4);
         acl_xor(key+4, key+4, pt, 4);
     }
-    h = stop_timer(0); put_val("  20000 = ", h);
+    h = stop_timer(0);
+    put_val("  20000 = ", h);
     acl_str2bytes(tmp, (bytes) aes_ecb_de_results[2], 4);
-    if(acl_cmp(ct, tmp, 4)) return TRUE;
+    if (acl_cmp(ct, tmp, 4)) {
+        return TRUE;
+    }
 
     return FALSE;
 }
@@ -175,30 +206,33 @@ bool_t test_aes_cbc_en(void) {
     put_str("\naes cbc en 128");
     len_aes = ACL_128;
     zero_all();
-    for(i=0; i<2; i++) {
+    for (i = 0; i < 2; i++) {
         /* compare with cbc_e_m.txt 128 bits */
         acl_aes_key_en(key_exp, key, len_aes);
         acl_mov(oct, iv, 4);
-        for(j=0; j<10000; j++) {
+        for (j = 0; j < TEST_AES_ITER; j++) {
             acl_aes_cbc_en(ct, pt, key_exp, len_aes, iv);
             acl_mov(pt, oct, 4);
             acl_mov(oct, ct, 4);
         }
         acl_xor(key, key, ct, 4);
     }
-    h = stop_timer(0); put_val("  20000 = ", h);
+    h = stop_timer(0);
+    put_val("  20000 = ", h);
     acl_str2bytes(tmp, (bytes) aes_cbc_en_results[0], 4);
-    if(acl_cmp(pt, tmp, 4)) return TRUE;
+    if (acl_cmp(pt, tmp, 4)) {
+        return TRUE;
+    }
 
     /* 192-bit cbc monte carlo encryption test */
     put_str("\naes cbc en 192");
     len_aes = ACL_192;
     zero_all();
-    for(i=0; i<2; i++) {
+    for (i = 0; i < 2; i++) {
         /* compare with cbc_e_m.txt 192 bits */
         acl_aes_key_en(key_exp, key, len_aes);
         acl_mov(oct, iv, 4);
-        for(j=0; j<10000; j++) {
+        for (j = 0; j < TEST_AES_ITER; j++) {
             acl_aes_cbc_en(ct, pt, key_exp, len_aes, iv);
             acl_mov(pt, oct, 4);
             acl_mov(oct, ct, 4);
@@ -206,19 +240,22 @@ bool_t test_aes_cbc_en(void) {
         acl_xor(key, key, pt+2, 2);
         acl_xor(key+2, key+2, ct, 4);
     }
-    h = stop_timer(0); put_val("  20000 = ", h);
+    h = stop_timer(0);
+    put_val("  20000 = ", h);
     acl_str2bytes(tmp, (bytes) aes_cbc_en_results[1], 4);
-    if(acl_cmp(pt, tmp, 4)) return TRUE;
+    if (acl_cmp(pt, tmp, 4)) {
+        return TRUE;
+    }
 
     /* 256-bit cbc monte carlo encryption test */
     put_str("\naes cbc en 256");
     len_aes = ACL_256;
     zero_all();
-    for(i=0; i<2; i++) {
+    for (i = 0; i < 2; i++) {
         /* compare with cbc_e_m.txt 256 bits */
         acl_aes_key_en(key_exp, key, len_aes);
         acl_mov(oct, iv, 4);
-        for(j=0; j<10000; j++) {
+        for (j = 0; j < TEST_AES_ITER; j++) {
             acl_aes_cbc_en(ct, pt, key_exp, len_aes, iv);
             acl_mov(pt, oct, 4);
             acl_mov(oct, ct, 4);
@@ -226,9 +263,12 @@ bool_t test_aes_cbc_en(void) {
         acl_xor(key, key, pt, 4);
         acl_xor(key+4, key+4, ct, 4);
     }
-    h = stop_timer(0); put_val("  20000 = ", h);
+    h = stop_timer(0);
+    put_val("  20000 = ", h);
     acl_str2bytes(tmp, (bytes) aes_cbc_en_results[2], 4);
-    if(acl_cmp(pt, tmp, 4)) return TRUE;
+    if (acl_cmp(pt, tmp, 4)) {
+        return TRUE;
+    }
 
     return FALSE;
 }
@@ -238,26 +278,33 @@ bool_t test_aes_cbc_de(void) {
     put_str("\naes cbc de 128");
     len_aes = ACL_128;
     zero_all();
-    for(i=0; i<2; i++) {
+    for (i = 0; i < 2; i++) {
         acl_aes_key_de(key_exp, key, len_aes);
         acl_mov(pt, ct, 4);
-        for(j=0; j<10000; j++) acl_aes_cbc_de(pt, pt, key_exp, len_aes, iv);
+        for (j = 0; j < TEST_AES_ITER; j++) {
+            acl_aes_cbc_de(pt, pt, key_exp, len_aes, iv);
+        }
         /* compare with cbc_d_m.txt 128 bits */
         acl_mov(ct, pt, 4);
         acl_xor(key, key, pt, 4);
     }
-    h = stop_timer(0); put_val("  20000 = ", h);
+    h = stop_timer(0);
+    put_val("  20000 = ", h);
     acl_str2bytes(tmp, (bytes) aes_cbc_de_results[0], 4);
-    if(acl_cmp(ct, tmp, 4)) return TRUE;
+    if (acl_cmp(ct, tmp, 4)) {
+        return TRUE;
+    }
 
     /* 192-bit cbc monte carlo decryption test */
     put_str("\naes cbc de 192");
     len_aes = ACL_192;
     zero_all();
-    for(i=0; i<2; i++) {
+    for (i = 0; i < 2; i++) {
         acl_aes_key_de(key_exp, key, len_aes);
         acl_mov(pt, ct, 4);
-        for(j=0; j<10000-2; j++) acl_aes_cbc_de(pt,pt, key_exp, len_aes, iv);
+        for (j = 0; j < TEST_AES_ITER-2; j++) {
+            acl_aes_cbc_de(pt,pt, key_exp, len_aes, iv);
+        }
         acl_aes_cbc_de(oct, pt, key_exp, len_aes, iv);
         acl_aes_cbc_de(pt, oct, key_exp, len_aes, iv);
         /* compare with cbc_d_m.txt 192 bits */
@@ -265,18 +312,23 @@ bool_t test_aes_cbc_de(void) {
         acl_xor(key, key, oct+2, 2);
         acl_xor(key+2, key+2, pt, 4);
     }
-    h = stop_timer(0); put_val("  20000 = ", h);
+    h = stop_timer(0);
+    put_val("  20000 = ", h);
     acl_str2bytes(tmp, (bytes) aes_cbc_de_results[1], 4);
-    if(acl_cmp(ct, tmp, 4)) return TRUE;
+    if (acl_cmp(ct, tmp, 4)) {
+        return TRUE;
+    }
 
     /* 256-bit cbc monte carlo decryption test */
     put_str("\naes cbc de 256");
     len_aes = ACL_256;
     zero_all();
-    for(i=0; i<2; i++) {
+    for (i = 0; i < 2; i++) {
         acl_aes_key_de(key_exp, key, len_aes);
         acl_mov(pt, ct, 4);
-        for(j=0; j<10000-2; j++) acl_aes_cbc_de(pt,pt, key_exp, len_aes, iv);
+        for (j = 0; j < TEST_AES_ITER-2; j++) {
+            acl_aes_cbc_de(pt,pt, key_exp, len_aes, iv);
+        }
         acl_aes_cbc_de(oct, pt, key_exp, len_aes, iv);
         acl_aes_cbc_de(pt, oct, key_exp, len_aes, iv);
         /* compare with cbc_d_m.txt 256 bits */
@@ -284,19 +336,22 @@ bool_t test_aes_cbc_de(void) {
         acl_xor(key, key, oct, 4);
         acl_xor(key+4, key+4, pt, 4);
     }
-    h = stop_timer(0); put_val("  20000 = ", h);
+    h = stop_timer(0);
+    put_val("  20000 = ", h);
     acl_str2bytes(tmp, (bytes) aes_cbc_de_results[2], 4);
-    if(acl_cmp(ct, tmp, 4)) return TRUE;
+    if (acl_cmp(ct, tmp, 4)) {
+        return TRUE;
+    }
 
     return FALSE;
 }
 
 bool_t test_aes(void) {
 
-    if(test_aes_ecb_en()) return TRUE;
-    if(test_aes_ecb_de()) return TRUE;
-    if(test_aes_cbc_en()) return TRUE;
-    if(test_aes_cbc_de()) return TRUE;
+    if (test_aes_ecb_en()) return TRUE;
+    if (test_aes_ecb_de()) return TRUE;
+    if (test_aes_cbc_en()) return TRUE;
+    if (test_aes_cbc_de()) return TRUE;
 
     return FALSE;
 }

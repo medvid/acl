@@ -22,20 +22,24 @@ bool_t acl_p_ecc_chk(vect2 a, vect4 tmp, ecc_t *c)
     yy = xx + len; t1 = tmp + 2*len; t2 = t1 + len;
 
 #if ACL_CHK_INF_ON_CURVE
-    if(acl_zero(a, 2*len)) return TRUE;
+    if (acl_zero(a, 2*len)) {
+        return TRUE;
+    }
 #endif
     acl_p_sqr_fr(t1, xx);           // t1 = x^2
-    if((int) c->a == -3)            // t1 = x^2 + a
+    if ((int) c->a == -3) {         // t1 = x^2 + a
         acl_p_mod_sub32(t1, t1, 3, m, len);
-    else if(c->a)
+    } else if(c->a) {
         acl_p_mod_add(t1, t1, c->a, m, len);
+    }
     acl_p_mul_fr(t1, t1, xx);       // t1 = x^3 + ax
-    if((int) c->b <= ACL_MAX_B)     // t1 = x^3 + ax + b
+    if ((int) c->b <= ACL_MAX_B) {  // t1 = x^3 + ax + b
         acl_p_mod_add32(t1, t1, (int) c->b, m, len);
-    else
+    } else {
         acl_p_mod_add(t1, t1, c->b, m, len);
+    }
     acl_p_sqr_fr(t2, yy);           // t2 = y^2
-    if(c->t & ECC_A_MASK) {
+    if (c->t & ECC_A_MASK) {
         acl_mov(tmp, t1, len); acl_p_mod(t1, tmp, len, m + len, len);
         acl_mov(tmp, t2, len); acl_p_mod(t2, tmp, len, m + len, len);
     }

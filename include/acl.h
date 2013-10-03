@@ -5,6 +5,9 @@
     Department of Electronics and Multimedia Communications
            Technical University of Kosice (Slovakia)
     Version: 1.00                 Last revision: 2007-04-24
+    -------------------------------------------------------
+    Contributor: Volodymyr Medvid
+    Version: 1.01                 Last revision: 2013-09-06
 */
 
 #ifndef ACL_H
@@ -24,6 +27,8 @@
 
 #define TRUE -1
 #define FALSE 0
+
+#define VPint       *(volatile unsigned int *)
 
 /* The vect type is an array of 32-bit words with the LSW first (offset +0)
    and the MSW last (offset +4*(length-1)), its size indicated by "len".
@@ -118,6 +123,7 @@ int acl_cmp(vect a, vect b, size_t len);    // compare two arrays
 bool_t acl_zero(vect a, size_t len);        // returns true if the array is zero
 void acl_rsh(vect a, uint k, size_t len);   // a = a >> k
 uint acl_rev(uint a);                       // return value with byte order reversed
+void acl_rev_bytes(vect a, size_t len);     // reverse byte order in array
 void acl_hex2str_dec(bytes res, size_t len_r, vect a, size_t len);
                               // convert number to string(decimal)
 void acl_hex2str_le(bytes res, vect a, size_t len);
@@ -128,6 +134,9 @@ void acl_str2bytes(vect res, bytes str, size_t len);
                               // convert string(hex) to array of bytes
 void acl_str2hex_be(vect res, bytes str, size_t len);
                               // convert string(hex) to number (big endian)
+void acl_str2hex(vect res, bytes str, size_t len);
+                              // convert string(hex) to number
+                              // use configured target endianess
 
 /* GF(p) */
 uint acl_p_mod_add(vect res, vect a, vect b, vect m, size_t len);
