@@ -52,19 +52,19 @@ RM       := rm -f
 
 # $(BOARD) should be set in config.mk
 
+ifneq ($(BOARD),)
 # Board-specific directory
 BOARD_DIR := board/$(BOARD)
 BOARD_CONFIG := $(BOARD_DIR)/config.mk
+include $(BOARD_CONFIG)
 
 # Rebuild project after config change
-ifneq ($(BOARD),)
-include $(BOARD_CONFIG)
 config.mk: $(BOARD_CONFIG)
-endif
 
 # Linker script for test application
 TEST_LD  := $(BOARD_DIR)/test.ld
 LDFLAGS  += -T $(TEST_LD)
+endif
 
 
 ##### Options ##########################
