@@ -28,7 +28,7 @@ for opt do
   esac
 done
 
-if [[ ! ${boards[*]} =~ $board ]]
+if [[ ! ${boards[*]} == $board ]]
 then
   echo "Invalid board: $board"
   echo "Supported boards are: ${boards[*]}"
