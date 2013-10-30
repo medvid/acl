@@ -1,9 +1,9 @@
-config.mk
-build/
+/config.mk
+/build/
 
-bin/
-lst/
-obj/
+/bin/
+/lst/
+/obj/
 
 *.a
 *.d
