@@ -13,6 +13,12 @@ board="versatilepb"
 cross_prefix=arm-none-eabi-
 debug="yes"
 
+containsElement () {
+  local e
+  for e in "${@:2}"; do [[ "$e" == "$1" ]] && return 0; done
+  return 1
+}
+
 # parse options
 for opt do
   optarg=`expr "x$opt" : 'x[^=]*=\(.*\)'`
@@ -28,7 +34,7 @@ for opt do
   esac
 done
 
-if [[ ! ${boards[*]} == $board ]]
+if ! containsElement "$board" "${boards[@]}"
 then
   echo "Invalid board: $board"
   echo "Supported boards are: ${boards[*]}"
