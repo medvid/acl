@@ -24,7 +24,7 @@ Department of Electronics and Multimedia Communications (DEMC)
 
 ### 2013
 
-**Maintainer** - Volodymyr Medvid <vmmedvid@gmail.com>
+**Maintainer** - Volodymyr Medvid <vmedvid@riseup.net>
 
 ## License
 Unknown. Original code was pulled out from Jaroslav Bán's [master thesis][1].
