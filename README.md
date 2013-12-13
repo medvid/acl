@@ -86,7 +86,7 @@ To resolve build problems, enable verbose output with `V=1`:
 
 You can get Linaro arm-none-eabi toolchain [here][9].
 
-Everything was tested with version 4.7-2013-q2-update: [sources][10],
+Everything was tested with version 4.7-2013-q3-update: [sources][10],
 [linux binaries][11], [win32 binaries][12], [win32 installer][13].
 
 ## Test instructions
@@ -155,8 +155,8 @@ will assign `CTRL-C` as control sequence for qemu
 [7]: http://git.denx.de/cgi-bin/gitweb.cgi?p=u-boot.git;a=blob;f=arch/arm/cpu/arm926ejs/versatile/timer.c
 [8]: http://www.denx.de/wiki/U-Boot
 [9]: https://launchpad.net/gcc-arm-embedded
-[10]: https://launchpad.net/gcc-arm-embedded/4.7/4.7-2013-q2-update/+download/gcc-arm-none-eabi-4_7-2013q2-20130614-src.tar.bz2
-[11]: https://launchpad.net/gcc-arm-embedded/4.7/4.7-2013-q2-update/+download/gcc-arm-none-eabi-4_7-2013q2-20130614-linux.tar.bz2
-[12]: https://launchpad.net/gcc-arm-embedded/4.7/4.7-2013-q2-update/+download/gcc-arm-none-eabi-4_7-2013q2-20130614-win32.zip
-[13]: https://launchpad.net/gcc-arm-embedded/4.7/4.7-2013-q2-update/+download/gcc-arm-none-eabi-4_7-2013q2-20130614-win32.exe
+[10]: https://launchpad.net/gcc-arm-embedded/4.7/4.7-2013-q3-update/+download/gcc-arm-none-eabi-4_7-2013q3-20130916-src.tar.bz2
+[11]: https://launchpad.net/gcc-arm-embedded/4.7/4.7-2013-q3-update/+download/gcc-arm-none-eabi-4_7-2013q3-20130916-linux.tar.bz2
+[12]: https://launchpad.net/gcc-arm-embedded/4.7/4.7-2013-q3-update/+download/gcc-arm-none-eabi-4_7-2013q3-20130916-win32.zip
+[13]: https://launchpad.net/gcc-arm-embedded/4.7/4.7-2013-q3-update/+download/gcc-arm-none-eabi-4_7-2013q3-20130916-win32.exe
 [14]: http://wiki.qemu.org
